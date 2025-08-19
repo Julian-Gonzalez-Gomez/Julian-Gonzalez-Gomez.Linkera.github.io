@@ -296,8 +296,9 @@
     </style>
 </head>
     <body>
-        <header></header>
-        <div class="redes">
+    <header></header>
+
+    <div class="redes">
         <a href="https://www.instagram.com/lafuenteunlp/" target="_blank" rel="noopener">
             <img src="images/iglogo.svg" alt="Instagram">
         </a>
@@ -307,7 +308,7 @@
         <a href="https://discord.gg/ZtFbdk4Pmw" target="_blank" rel="noopener">
             <img src="images/dclogo.svg" alt="Discord">
         </a>
-        </div>
+    </div>
 
     <!-- GRID -->
     <div class="grid-container" role="navigation" aria-label="Accesos rápidos">
@@ -323,13 +324,14 @@
              data-title="Transporte"
              data-desc="Elegí dónde querés ir:"
              data-options='[
-               {"label":"Boleto Universitario","href":"blank","target":"_blank"},
-               {"label":"Horarios y Recorridos","href":"blank,"target":"_blank"},
-               {"label":"Formulario Min. Transporte","href":"blank,"target":"_blank"}
+               {"label":"Boleto Universitario","href":"#","target":"_blank"},
+               {"label":"Horarios y Recorridos","href":"#","target":"_blank"},
+               {"label":"Formulario Min. Transporte","href":"#","target":"_blank"}
              ]'
              role="button" tabindex="0">
-          <img src="images/tansplogo.png" alt="Transporte">
-          <a href="#" class="titulo">Transporte Universitario</a>
+            <!-- corregí el nombre del archivo aquí (transplogo.png) -->
+            <img src="images/transplogo.png" alt="Transporte">
+            <a href="#" class="titulo">Transporte Universitario</a>
         </div>
 
         <!-- Cuadrado 3 -->
@@ -349,8 +351,8 @@
                {"label":"Ciencia de Datos","href":"gruposCDO.html","target":"_blank","variant":"secondary"}
              ]'
              role="button" tabindex="0">
-          <img src="images/wsplogo.png" alt="Grupos">
-          <a href="#" class="titulo">Grupos de Whatsapp</a>
+            <img src="images/wsplogo.png" alt="Grupos">
+            <a href="#" class="titulo">Grupos de Whatsapp</a>
         </div>
 
         <!-- Cuadrado 5 -->
@@ -362,7 +364,7 @@
         <!-- Cuadrado 6 -->
         <div class="grid-item">
             <img src="images/calendariologo.png" alt="Proyecto 4">
-            <a href="https://www.info.unlp.edu.ar/docentes-principal-3894/docentes-calendario-academico/" target="_blank" rel="noopener">Calendario Academico</a> 
+            <a href="https://www.info.unlp.edu.ar/docentes-principal-3894/docentes-calendario-academico/" target="_blank" rel="noopener">Calendario Academico</a>
         </div>
     </div>
 
@@ -373,92 +375,91 @@
                 <div class="modal-title" id="modal-title">Seleccioná una opción</div>
                 <button class="modal-close" id="modal-close" aria-label="Cerrar">&times;</button>
             </div>
-                </div>
-                    </div>
 
             <div class="modal-body">
                 <p id="modal-desc">Elegí tu carrera:</p>
                 <ul class="options" id="modal-options">
-                    <li><a class="btn" id="opt-1" href="" target="_blank" rel="noopener"></a></li>
-                    <li><a class="btn" id="opt-2" href="" target="_blank" rel="noopener"></a></li>
-                    <li><a class="btn" id="opt-3" href="" target="_blank" rel="noopener"></a></li>
-                </ul> </div>
+                    <!-- Los items se generarán dinámicamente mediante JS -->
+                </ul>
+            </div>
+        </div>
+    </div>
 
+    <!-- JS: comportamiento modal -->
+    <script>
+    (function () {
+        const overlay     = document.getElementById('overlay');
+        const closeBtn    = document.getElementById('modal-close');
+        const modalTitle  = document.getElementById('modal-title');
+        const modalDesc   = document.getElementById('modal-desc');
+        const modalOptions= document.getElementById('modal-options');
 
-            <!-- JS: comportamiento modal -->
-            <script>
-                (function () {
-                  const overlay     = document.getElementById('overlay');
-                  const closeBtn    = document.getElementById('modal-close');
-                  const modalTitle  = document.getElementById('modal-title');
-                  const modalDesc   = document.getElementById('modal-desc');
-                  const modalOptions= document.getElementById('modal-options');
-                
-                  function safeParseJSON(str) {
-                    if (!str) return null;
-                    try { return JSON.parse(str); } catch(e) { return null; }
-                  }
-                
-                  function renderOptions(list) {
-                    modalOptions.innerHTML = '';
-                    (list || []).forEach((opt, i) => {
-                      const li = document.createElement('li');
-                      const a  = document.createElement('a');
-                      a.className = 'btn' + (opt.variant === 'secondary' ? ' secondary' : '');
-                      a.textContent = opt.label || ('Opción ' + (i + 1));
-                      a.href = opt.href || '#';
-                      a.rel = 'noopener';
-                      if (opt.target) a.target = opt.target;
-                      li.appendChild(a);
-                      modalOptions.appendChild(li);
-                    });
-                  }
-                
-                  function openModalFromItem(item) {
-                    const title = item.getAttribute('data-title') || 'Menú';
-                    const desc  = item.getAttribute('data-desc')  || 'Seleccioná una opción:';
-                    const opts  = safeParseJSON(item.getAttribute('data-options')) || [];
-                
-                    modalTitle.textContent = title;
-                    modalDesc.textContent  = desc;
-                    renderOptions(opts);
-                
-                    overlay.classList.add('activo');
-                    overlay.setAttribute('aria-hidden','false');
-                    document.body.style.overflow = 'hidden';
-                    closeBtn.focus();
-                  }
-                
-                  function closeModal() {
-                    overlay.classList.remove('activo');
-                    overlay.setAttribute('aria-hidden','true');
-                    document.body.style.overflow = '';
-                  }
-                
-                  // Delegación para todos los .grid-item-menu
-                  document.querySelectorAll('.grid-item-menu').forEach(item => {
-                    item.addEventListener('click', (e) => {
-                      if (e.target.tagName.toLowerCase() === 'a') e.preventDefault();
-                      openModalFromItem(item);
-                    });
-                    item.addEventListener('keydown', (e) => {
-                      if (e.key === 'Enter' || e.key === ' ') {
-                        e.preventDefault();
-                        openModalFromItem(item);
-                      }
-                    });
-                  });
-                
-                  // Cierres
-                  closeBtn.addEventListener('click', closeModal);
-                  overlay.addEventListener('click', (e) => { if (e.target === overlay) closeModal(); });
-                  document.addEventListener('keydown', (e) => {
-                    if (e.key === 'Escape' && overlay.classList.contains('activo')) closeModal();
-                  });
-                })();
-            </script>
-        </body>
-<bottom>
-    <div class="commonninja_component pid-2af6a870-774f-41d7-bc2c-64114e6cec67"></div> 
-</bottom>
+        function safeParseJSON(str) {
+            if (!str) return null;
+            try { return JSON.parse(str); } catch(e) { return null; }
+        }
+
+        function renderOptions(list) {
+            modalOptions.innerHTML = '';
+            (list || []).forEach((opt, i) => {
+                const li = document.createElement('li');
+                const a  = document.createElement('a');
+                a.className = 'btn' + (opt.variant === 'secondary' ? ' secondary' : '');
+                a.textContent = opt.label || ('Opción ' + (i + 1));
+                a.href = opt.href || '#';
+                a.rel = 'noopener';
+                if (opt.target) a.target = opt.target;
+                li.appendChild(a);
+                modalOptions.appendChild(li);
+            });
+        }
+
+        function openModalFromItem(item) {
+            const title = item.getAttribute('data-title') || 'Menú';
+            const desc  = item.getAttribute('data-desc')  || 'Seleccioná una opción:';
+            const opts  = safeParseJSON(item.getAttribute('data-options')) || [];
+
+            modalTitle.textContent = title;
+            modalDesc.textContent  = desc;
+            renderOptions(opts);
+
+            overlay.classList.add('activo');
+            overlay.setAttribute('aria-hidden','false');
+            document.body.style.overflow = 'hidden';
+            closeBtn.focus();
+        }
+
+        function closeModal() {
+            overlay.classList.remove('activo');
+            overlay.setAttribute('aria-hidden','true');
+            document.body.style.overflow = '';
+        }
+
+        // Delegación para todos los .grid-item-menu
+        document.querySelectorAll('.grid-item-menu').forEach(item => {
+            item.addEventListener('click', (e) => {
+                if (e.target.tagName.toLowerCase() === 'a') e.preventDefault();
+                openModalFromItem(item);
+            });
+            item.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    openModalFromItem(item);
+                }
+            });
+        });
+
+        // Cierres
+        closeBtn.addEventListener('click', closeModal);
+        overlay.addEventListener('click', (e) => { if (e.target === overlay) closeModal(); });
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && overlay.classList.contains('activo')) closeModal();
+        });
+    })();
+    </script>
+
+    <footer>
+        <div class="commonninja_component pid-2af6a870-774f-41d7-bc2c-64114e6cec67"></div>
+    </footer>
+</body>
 </html>
