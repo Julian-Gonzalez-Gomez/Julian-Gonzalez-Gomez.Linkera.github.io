@@ -295,12 +295,9 @@
         }
     </style>
 </head>
-<body>
-    <header>
-    </header>
-
-    <!-- Redes -->
-    <div class="redes">
+    <body>
+        <header></header>
+        <div class="redes">
         <a href="https://www.instagram.com/lafuenteunlp/" target="_blank" rel="noopener">
             <img src="images/iglogo.svg" alt="Instagram">
         </a>
@@ -310,7 +307,7 @@
         <a href="https://discord.gg/ZtFbdk4Pmw" target="_blank" rel="noopener">
             <img src="images/dclogo.svg" alt="Discord">
         </a>
-    </div>
+        </div>
 
     <!-- GRID -->
     <div class="grid-container" role="navigation" aria-label="Accesos rápidos">
@@ -387,76 +384,78 @@
 
             <!-- JS: comportamiento modal -->
             <script>
-        (function () {
-          const overlay     = document.getElementById('overlay');
-          const closeBtn    = document.getElementById('modal-close');
-          const modalTitle  = document.getElementById('modal-title');
-          const modalDesc   = document.getElementById('modal-desc');
-          const modalOptions= document.getElementById('modal-options');
-        
-          function safeParseJSON(str) {
-            if (!str) return null;
-            try { return JSON.parse(str); } catch(e) { return null; }
-          }
-        
-          function renderOptions(list) {
-            modalOptions.innerHTML = '';
-            (list || []).forEach((opt, i) => {
-              const li = document.createElement('li');
-              const a  = document.createElement('a');
-              a.className = 'btn' + (opt.variant === 'secondary' ? ' secondary' : '');
-              a.textContent = opt.label || ('Opción ' + (i + 1));
-              a.href = opt.href || '#';
-              a.rel = 'noopener';
-              if (opt.target) a.target = opt.target;
-              li.appendChild(a);
-              modalOptions.appendChild(li);
-            });
-          }
-        
-          function openModalFromItem(item) {
-            const title = item.getAttribute('data-title') || 'Menú';
-            const desc  = item.getAttribute('data-desc')  || 'Seleccioná una opción:';
-            const opts  = safeParseJSON(item.getAttribute('data-options')) || [];
-        
-            modalTitle.textContent = title;
-            modalDesc.textContent  = desc;
-            renderOptions(opts);
-        
-            overlay.classList.add('activo');
-            overlay.setAttribute('aria-hidden','false');
-            document.body.style.overflow = 'hidden';
-            closeBtn.focus();
-          }
-        
-          function closeModal() {
-            overlay.classList.remove('activo');
-            overlay.setAttribute('aria-hidden','true');
-            document.body.style.overflow = '';
-          }
-        
-          // Delegación para todos los .grid-item-menu
-          document.querySelectorAll('.grid-item-menu').forEach(item => {
-            item.addEventListener('click', (e) => {
-              if (e.target.tagName.toLowerCase() === 'a') e.preventDefault();
-              openModalFromItem(item);
-            });
-            item.addEventListener('keydown', (e) => {
-              if (e.key === 'Enter' || e.key === ' ') {
-                e.preventDefault();
-                openModalFromItem(item);
-              }
-            });
-          });
-        
-          // Cierres
-          closeBtn.addEventListener('click', closeModal);
-          overlay.addEventListener('click', (e) => { if (e.target === overlay) closeModal(); });
-          document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape' && overlay.classList.contains('activo')) closeModal();
-          });
-        })();
-        </script>
+                (function () {
+                  const overlay     = document.getElementById('overlay');
+                  const closeBtn    = document.getElementById('modal-close');
+                  const modalTitle  = document.getElementById('modal-title');
+                  const modalDesc   = document.getElementById('modal-desc');
+                  const modalOptions= document.getElementById('modal-options');
+                
+                  function safeParseJSON(str) {
+                    if (!str) return null;
+                    try { return JSON.parse(str); } catch(e) { return null; }
+                  }
+                
+                  function renderOptions(list) {
+                    modalOptions.innerHTML = '';
+                    (list || []).forEach((opt, i) => {
+                      const li = document.createElement('li');
+                      const a  = document.createElement('a');
+                      a.className = 'btn' + (opt.variant === 'secondary' ? ' secondary' : '');
+                      a.textContent = opt.label || ('Opción ' + (i + 1));
+                      a.href = opt.href || '#';
+                      a.rel = 'noopener';
+                      if (opt.target) a.target = opt.target;
+                      li.appendChild(a);
+                      modalOptions.appendChild(li);
+                    });
+                  }
+                
+                  function openModalFromItem(item) {
+                    const title = item.getAttribute('data-title') || 'Menú';
+                    const desc  = item.getAttribute('data-desc')  || 'Seleccioná una opción:';
+                    const opts  = safeParseJSON(item.getAttribute('data-options')) || [];
+                
+                    modalTitle.textContent = title;
+                    modalDesc.textContent  = desc;
+                    renderOptions(opts);
+                
+                    overlay.classList.add('activo');
+                    overlay.setAttribute('aria-hidden','false');
+                    document.body.style.overflow = 'hidden';
+                    closeBtn.focus();
+                  }
+                
+                  function closeModal() {
+                    overlay.classList.remove('activo');
+                    overlay.setAttribute('aria-hidden','true');
+                    document.body.style.overflow = '';
+                  }
+                
+                  // Delegación para todos los .grid-item-menu
+                  document.querySelectorAll('.grid-item-menu').forEach(item => {
+                    item.addEventListener('click', (e) => {
+                      if (e.target.tagName.toLowerCase() === 'a') e.preventDefault();
+                      openModalFromItem(item);
+                    });
+                    item.addEventListener('keydown', (e) => {
+                      if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        openModalFromItem(item);
+                      }
+                    });
+                  });
+                
+                  // Cierres
+                  closeBtn.addEventListener('click', closeModal);
+                  overlay.addEventListener('click', (e) => { if (e.target === overlay) closeModal(); });
+                  document.addEventListener('keydown', (e) => {
+                    if (e.key === 'Escape' && overlay.classList.contains('activo')) closeModal();
+                  });
+                })();
+                </script>
+            </div>
+        </div>
     </body>
 <bottom>
     <div class="commonninja_component pid-2af6a870-774f-41d7-bc2c-64114e6cec67"></div> 
