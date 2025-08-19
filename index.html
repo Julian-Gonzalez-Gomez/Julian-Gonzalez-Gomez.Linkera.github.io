@@ -385,71 +385,77 @@
                     <li><a class="btn" id="opt-3" href="" target="_blank" rel="noopener"></a></li>
                 </ul> </div>
 
-    <!-- JS: comportamiento modal -->
-    <script>
+            <!-- JS: comportamiento modal -->
+            <script>
         (function () {
-            const overlay = document.getElementById('overlay');
-            const closeBtn = document.getElementById('modal-close');
-            const modalTitle = document.getElementById('modal-title');
-            const modalDesc = document.getElementById('modal-desc');
-            const modalOptions = document.getElementById('modal-options');
-
-            // función para abrir modal con contenidos dinámicos (si los quisieras pasar por data-*)
-            function openModalFromItem(item) {
-                const title = item.getAttribute('data-title') || 'Menú';
-                modalTitle.textContent = title;
-                modalDesc.textContent = 'Seleccioná una opción para ' + title + '.';
-
-                overlay.classList.add('activo');
-                overlay.setAttribute('aria-hidden', 'false');
-                document.body.style.overflow = 'hidden'; // bloquear scroll fondo
-
-                // accesibilidad: focus en el cierre
-                closeBtn.focus();
-            }
-
-            function closeModal() {
-                overlay.classList.remove('activo');
-                overlay.setAttribute('aria-hidden', 'true');
-                document.body.style.overflow = '';
-            }
-
-            // Abrir modal al click/tap sobre cualquier .grid-item-menu
-            document.querySelectorAll('.grid-item-menu').forEach(item => {
-                item.addEventListener('click', function (e) {
-                    // evitar navegación si el título es un <a href="#">
-                    if (e.target.tagName.toLowerCase() === 'a') e.preventDefault();
-                    openModalFromItem(item);
-                });
-
-                // soporte teclado (Enter / Space)
-                item.addEventListener('keydown', function (e) {
-                    if (e.key === 'Enter' || e.key === ' ') {
-                        e.preventDefault();
-                        item.click();
-                    }
-                });
+          const overlay     = document.getElementById('overlay');
+          const closeBtn    = document.getElementById('modal-close');
+          const modalTitle  = document.getElementById('modal-title');
+          const modalDesc   = document.getElementById('modal-desc');
+          const modalOptions= document.getElementById('modal-options');
+        
+          function safeParseJSON(str) {
+            if (!str) return null;
+            try { return JSON.parse(str); } catch(e) { return null; }
+          }
+        
+          function renderOptions(list) {
+            modalOptions.innerHTML = '';
+            (list || []).forEach((opt, i) => {
+              const li = document.createElement('li');
+              const a  = document.createElement('a');
+              a.className = 'btn' + (opt.variant === 'secondary' ? ' secondary' : '');
+              a.textContent = opt.label || ('Opción ' + (i + 1));
+              a.href = opt.href || '#';
+              a.rel = 'noopener';
+              if (opt.target) a.target = opt.target;
+              li.appendChild(a);
+              modalOptions.appendChild(li);
             });
-
-            // Cerrar con botón X
-            closeBtn.addEventListener('click', closeModal);
-
-            // Cerrar al click fuera del modal
-            overlay.addEventListener('click', function (e) {
-                if (e.target === overlay) closeModal();
+          }
+        
+          function openModalFromItem(item) {
+            const title = item.getAttribute('data-title') || 'Menú';
+            const desc  = item.getAttribute('data-desc')  || 'Seleccioná una opción:';
+            const opts  = safeParseJSON(item.getAttribute('data-options')) || [];
+        
+            modalTitle.textContent = title;
+            modalDesc.textContent  = desc;
+            renderOptions(opts);
+        
+            overlay.classList.add('activo');
+            overlay.setAttribute('aria-hidden','false');
+            document.body.style.overflow = 'hidden';
+            closeBtn.focus();
+          }
+        
+          function closeModal() {
+            overlay.classList.remove('activo');
+            overlay.setAttribute('aria-hidden','true');
+            document.body.style.overflow = '';
+          }
+        
+          // Delegación para todos los .grid-item-menu
+          document.querySelectorAll('.grid-item-menu').forEach(item => {
+            item.addEventListener('click', (e) => {
+              if (e.target.tagName.toLowerCase() === 'a') e.preventDefault();
+              openModalFromItem(item);
             });
-
-            // Cerrar con ESC
-            document.addEventListener('keydown', function (e) {
-                if (e.key === 'Escape' && overlay.classList.contains('activo')) closeModal();
+            item.addEventListener('keydown', (e) => {
+              if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                openModalFromItem(item);
+              }
             });
-
-            // Evitar que clicks dentro de las opciones cierren por bubbling
-            modalOptions.addEventListener('click', function (e) {
-                e.stopPropagation();
-            });
+          });
+        
+          // Cierres
+          closeBtn.addEventListener('click', closeModal);
+          overlay.addEventListener('click', (e) => { if (e.target === overlay) closeModal(); });
+          document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && overlay.classList.contains('activo')) closeModal();
+          });
         })();
-
         </script>
     </body>
 <bottom>
