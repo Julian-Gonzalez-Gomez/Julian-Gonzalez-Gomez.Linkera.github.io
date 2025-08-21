@@ -1,20 +1,19 @@
 {
-"short_name": "La Fuente",
-  "name": "La Fuente",
-  "icons": [
-    {
-      "src": "images/logo192.png",
-      "sizes": "192x192",
-      "type": "image/png"
-    },
-    {
-      "src": "images/logo512.png",
-      "sizes": "512x512",
-      "type": "image/png"
-    }
-  ],
-  "start_url": "/index.html",
-  "display": "standalone",
-  "theme_color": "Orange",
-  "background_color": "Orange"
+    "name": "La Fuente",
+    "short_name": "La Fuente",
+    "icons": [
+        {
+            "src": "images/logo192.png",
+            "sizes": "192x192",
+            "type": "image/png"
+        },
+        {
+            "src": "images/logo512.png",
+            "sizes": "512x512",
+            "type": "image/png"
+        }
+    ],
+    "theme_color": "orange",
+    "background_color": "orange",
+    "display": "standalone"
 }
