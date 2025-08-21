@@ -1,10 +1,19 @@
-{"name":"",
-"short_name":"",
-"icons":[{"src":"images/LFlogo.jpg",
-"sizes":"192x192","type":"image/jpg"},
-
-{"src":"images/LFlogo.jpg",
-"sizes":"512x512","type":"image/jpg"}],
-"theme_color":"#FF6500",
-"background_color":"#FF914D",
-"display":"standalone"}
+"short_name": "La Fuente",
+  "name": "La Fuente",
+  "icons": [
+    {
+      "src": "images/logo192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "images/logo512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ],
+  "start_url": "/index.html",
+  "display": "standalone",
+  "theme_color": "Orange",
+  "background_color": "Orange"
+}
