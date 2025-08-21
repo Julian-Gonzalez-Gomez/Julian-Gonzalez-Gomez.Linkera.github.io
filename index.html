@@ -15,7 +15,7 @@
     <link rel="apple-touch-icon" href="images/LFlogo.jpg">
     <link href="https://db.onlinewebfonts.com/c/3e09062e3b0ce6bb44ab60de3bca0374?family=Rajdhani" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet" />
-    <script src="https://cdn.commoninja.com/sdk/latest/commonninja.js" defer></script>
+    
 
     <!-- CSS (incrustado) -->
     <style>
@@ -45,8 +45,9 @@
             justify-content: center;
             align-items: center;
         }
-        footer {
+        footer { 
             display: flex;
+            border-bottom: 3px solid white;
             width: 100%;
             min-height: 100px;
             justify-content: center;
@@ -293,6 +294,7 @@
                 width: 94vw;
             }
         }
+
     </style>
 </head>
     <body>
@@ -377,18 +379,19 @@
         </div> 
 
     <!-- OVERLAY + MODAL (reutilizable para todos los .grid-item-menu) -->
-    <div class="overlay" id="overlay" aria-hidden="true" role="dialog" aria-modal="true">
-        <div class="modal" role="document" aria-labelledby="modal-title">
-            <div class="modal-header">
-                <div class="modal-title" id="modal-title">Seleccioná una opción</div>
-                <button class="modal-close" id="modal-close" aria-label="Cerrar">&times;</button>
-            </div>
+        <div class="overlay" id="overlay" aria-hidden="true" role="dialog" aria-modal="true">
+            <div class="modal" role="document" aria-labelledby="modal-title">
+                <div class="modal-header">
+                    <div class="modal-title" id="modal-title">Seleccioná una opción</div>
+                    <button class="modal-close" id="modal-close" aria-label="Cerrar">&times;</button>
+                </div>
 
-            <div class="modal-body">
-                <p id="modal-desc">Elegí tu carrera:</p>
-                <ul class="options" id="modal-options">
-                    <!-- Los items se generarán dinámicamente mediante JS -->
-                </ul>
+                <div class="modal-body">
+                    <p id="modal-desc">Elegí tu carrera:</p>
+                    <ul class="options" id="modal-options">
+                        <!-- Los items se generarán dinámicamente mediante JS -->
+                    </ul>
+                </div>
             </div>
         </div>
     </div>
@@ -465,9 +468,9 @@
         });
     })();
     </script>
-
-    <footer>
-        <div class="commonninja_component pid-2af6a870-774f-41d7-bc2c-64114e6cec67"></div>
-    </footer>
 </body>
+<footer>
+    <div class="commonninja_component pid-2af6a870-774f-41d7-bc2c-64114e6cec67"></div>
+    <script src="https://cdn.commoninja.com/sdk/latest/commonninja.js" defer></script>   
+</footer>
 </html>
